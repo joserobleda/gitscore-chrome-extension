@@ -22,7 +22,7 @@
 
 		pieces 	= location.pathname.split('/');
 		repo 	= pieces[1] + '/' + pieces[2];
-		URI 	= 'http://gitscoring.herokuapp.com/' + repo;
+		URI 	= 'https://gitscoring.herokuapp.com/' + repo;
 
 		l('repo endpoint: ' + URI);
 
