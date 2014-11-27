@@ -26,7 +26,6 @@
 
 		l('repo endpoint: ' + URI);
 
-
 		nodes = document.querySelectorAll(".timeline-comment-wrapper.js-comment-container > a");
 
 		if (nodes.length === 0) {
@@ -35,10 +34,30 @@
 		}
 
 		getJSON(URI, function (res) {
-			log('gs data recieved', res);
+			res.forEach(function (user) {
+				collection[user.login] = user;
+			});
+
+			[].forEach.call(nodes, function (node) {
+				var html, username, user, layer;
+
+				layer 		= document.createElement('div');
+				username 	= node.getAttribute('href').substring(1);
+				user 		= collection[username];
+
+				layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
+				html = '<div>Q: '+ Math.round(user.quality, 2) +'%</div>';
+				html += '<div>S: '+ user.score +' </div>';
+				html += '<div>R: '+ user.ranking +' </div>';
+				layer.innerHTML = html;
+
+				node.parentNode.insertBefore(layer, node);
+			});
+
+			l('gs data recieved', res);
 		});
 	}
 
 	l('git score extension loaded');
-	window.addEventListener('load', run, false);
+	run();
 }());
