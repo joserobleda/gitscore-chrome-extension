@@ -13,7 +13,7 @@
 			}
 		};
 		xhr.open("GET", URL, false);
-		xhr.setRequestHeader('Accepts', 'application/json');
+		xhr.setRequestHeader('Accept', 'application/json');
 		xhr.send(null);
 	}
 
