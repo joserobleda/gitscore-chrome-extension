@@ -30,6 +30,7 @@
 		nodes = document.querySelectorAll(".timeline-comment-wrapper.js-comment-container > a");
 
 		if (nodes.length === 0) {
+			console.log('no nodes to display');
 			return true;
 		}
 
