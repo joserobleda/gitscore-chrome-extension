@@ -11,7 +11,8 @@
         {
             "matches": ["https://github.com/*"],
             "js": ["app.js"],
-            "all_frames": true
+            "all_frames": true,
+            "run_at": "document_end"
         }
     ]
 }
