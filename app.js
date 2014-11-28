@@ -43,6 +43,21 @@
 		});
 	};
 
+
+	function getIcon(icon)
+	{
+		if (!icon || !icon.unicode) {
+			return '';
+		}
+
+		return 'https://assets-cdn.github.com/images/icons/emoji/unicode/'+ icon.unicode + '.png';
+	}
+
+	/**
+	 * Put the new HTML
+	 * @param  ctx DOM layer to perform the look up
+	 *
+	 */
 	function run (ctx) {
 		ctx = ctx || document;
 		var nodes = ctx.querySelectorAll(".timeline-comment-wrapper.js-comment-container > a");
@@ -62,14 +77,19 @@
 				// run once
 				node.setAttribute('gs-loaded', '');
 
-				var html, username, user, layer;
+				var html, username, user, layer, icon;
 
 				layer 		= document.createElement('div');
 				username 	= node.getAttribute('href').substring(1);
 				user 		= collection[username];
+				icon 		= getIcon({
+					unicode: '1f44d',
+					emoji: '+1'
+				});
 
 				layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
-				html = '<div>Q: '+ Math.round(user.quality, 2) +'%</div>';
+				html =  '<div style="position: absolute;top: 30px;left: 34px;"><img src="'+ icon +'" width="24" height="24" /></div>';
+				html += '<div>Q: '+ Math.round(user.quality, 2) +'%</div>';
 				html += '<div>S: '+ user.score +' </div>';
 				html += '<div>R: '+ user.ranking +' </div>';
 				layer.innerHTML = html;
