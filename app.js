@@ -82,10 +82,7 @@
 				layer 		= document.createElement('div');
 				username 	= node.getAttribute('href').substring(1);
 				user 		= collection[username];
-				icon 		= getIcon({
-					unicode: '1f44d',
-					emoji: '+1'
-				});
+				icon 		= getIcon(user.icon);
 
 				layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
 				html =  '<div style="position: absolute;top: 30px;left: 34px;"><img src="'+ icon +'" width="24" height="24" /></div>';
