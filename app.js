@@ -23,7 +23,7 @@
 
 		pieces 	= location.pathname.split('/');
 		repo 	= pieces[1] + '/' + pieces[2];
-		URI 	= 'https://gitscoring.herokuapp.com/' + repo;
+		URI 	= 'https://gitscoring.herokuapp.com/' + repo + '?days=10';
 
 		if (collection) {
 			return cb(collection);
