@@ -1,6 +1,6 @@
 {
     "name": "GitScore Chrome Extension",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "manifest_version": 2,
     "default_locale": "en",
     "description": "Show GitScore data in github.com",
