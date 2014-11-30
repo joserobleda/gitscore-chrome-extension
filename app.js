@@ -5,6 +5,16 @@
 		}
 	};
 
+	function getEndPoint() {
+		var pieces, repo, URI;
+
+		pieces 	= location.pathname.split('/');
+		repo 	= pieces[1] + '/' + pieces[2];
+		URI 	= 'https://gitscoring.herokuapp.com/' + repo;
+
+		return URI;
+	};
+
 	function getJSON(URL, cb) {
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
@@ -19,11 +29,7 @@
 
 	var collection = null;
 	function getCollection(cb) {
-		var pieces, repo, URI;
-
-		pieces 	= location.pathname.split('/');
-		repo 	= pieces[1] + '/' + pieces[2];
-		URI 	= 'https://gitscoring.herokuapp.com/' + repo + '?days=10';
+		var URI = getEndPoint() + '?days=10';
 
 		if (collection) {
 			return cb(collection);
@@ -100,11 +106,16 @@
 	};
 
 	function qualityCircle(quality) {
-		quality = Math.round(quality, 2);
+		var html, endpoint;
 
-		var html = '<div style="position: absolute;top: 0;left: -60px;">';
+		endpoint 	= getEndPoint() + '?days=10';
+		quality 	= Math.round(quality, 2);
+
+		html  = '<a href="'+ endpoint +'" target="_blank" style="color:#555">';
+		html += '<div style="position: absolute;top: 0;left: -60px;">';
 		html += '<div style="background-color: #f7f7f7; width: 50px; height: 50px;position: absolute;border-radius: 50%;top: 0;left: 0;vertical-align: middle; text-align: center;font-family: helvetica;border: 1px solid #ddd;line-height: 50px;text-indent:3px">';
 		html += '<strong style="font-size: 20px;">' + quality + '</strong><span style="font-size: 9px;">%</span></div></div>';
+		html += '</a>';
 		return html;
 	}
 
