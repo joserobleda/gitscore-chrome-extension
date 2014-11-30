@@ -77,24 +77,44 @@
 				// run once
 				node.setAttribute('gs-loaded', '');
 
-				var html, username, user, layer, icon;
+				var username, user;
 
-				layer 		= document.createElement('div');
 				username 	= node.getAttribute('href').substring(1);
 				user 		= collection[username];
-				icon 		= getIcon(user.icon);
 
-				layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
-				html =  '<div style="position: absolute;top: 30px;left: 34px;"><img src="'+ icon +'" width="24" height="24" /></div>';
-				html += '<div>Q: '+ Math.round(user.quality, 2) +'%</div>';
-				html += '<div>S: '+ user.score +' </div>';
-				html += '<div>R: '+ user.ranking +' </div>';
-				layer.innerHTML = html;
+				if (user) {
+					render(node, user);
+				} else {
 
-				node.parentNode.insertBefore(layer, node);
+				}
 			});
 		});
 	}
+
+	function qualityCircle(quality) {
+		quality = Math.round(quality, 2);
+
+		var html = '<div style="position: absolute;top: 0;left: -60px;">';
+		html += '<div style="background-color: #f7f7f7; width: 50px; height: 50px;position: absolute;border-radius: 50%;top: 0;left: 0;vertical-align: middle; text-align: center;font-family: helvetica;border: 1px solid #ddd;line-height: 50px;text-indent:3px">';
+		html += '<strong style="font-size: 20px;">' + quality + '</strong><span style="font-size: 9px;">%</span></div></div>';
+		return html;
+	}
+
+	function render(node, user) {
+		var html, layer, icon;
+
+		icon  = getIcon(user.icon);
+		layer = document.createElement('div');
+
+		layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
+		html =  '<div style="position: absolute;top:30px;left:-30px;z-index:2"><img src="'+ icon +'" width="24" height="24" /></div>';
+		html += '<div>S: '+ user.score +' </div>';
+		html += '<div>R: '+ user.ranking +' </div>';
+		html += qualityCircle(user.quality);
+		layer.innerHTML = html;
+
+		node.parentNode.insertBefore(layer, node);
+	};
 
 	l('gs: extension loaded');
 	run();
