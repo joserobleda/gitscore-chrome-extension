@@ -91,6 +91,14 @@
 		});
 	}
 
+	function getNumberIcon(number) {
+		if (number > 9) {
+			return;
+		}
+
+		return 'https://assets-cdn.github.com/images/icons/emoji/unicode/003'+ number +'-20e3.png';
+	};
+
 	function qualityCircle(quality) {
 		quality = Math.round(quality, 2);
 
@@ -101,16 +109,29 @@
 	}
 
 	function render(node, user) {
-		var html, layer, icon;
+		var html, layer, icon, number;
 
-		icon  = getIcon(user.icon);
-		layer = document.createElement('div');
+		icon  	= getIcon(user.icon);
+		number 	= getNumberIcon(user.ranking);
+		layer 	= document.createElement('div');
 
 		layer.setAttribute('style', 'float:left;margin: 52px 0 0 -64px; font-size: 11px; color: #555; text-align:left');
-		html =  '<div style="position: absolute;top:30px;left:-30px;z-index:2"><img src="'+ icon +'" width="24" height="24" /></div>';
-		html += '<div>S: '+ user.score +' </div>';
-		html += '<div>R: '+ user.ranking +' </div>';
+		html = '';
+
+		// the quality icon
+		html += '<div style="position: absolute;top:30px;left:-30px;z-index:2">';
+		html += '<img src="'+ icon +'" width="24" height="24" />';
+		html += '</div>';
+
+		// the quality circle
 		html += qualityCircle(user.quality);
+
+		if (number) {
+			html += '<div style="position: absolute;top:36px;left:38px;z-index:2">';
+			html += '<img src="'+ number +'" width="18" height="18" title="with '+ user.score + ' points of '+ user.pulls +' pull requests" />';
+			html += '</div>';
+		}
+
 		layer.innerHTML = html;
 
 		node.parentNode.insertBefore(layer, node);
